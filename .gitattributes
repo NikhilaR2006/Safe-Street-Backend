@@ -1,2 +1,1 @@
 backend/vit_pothole_crack_model_(1).pth filter=lfs diff=lfs merge=lfs -text
-vit_pothole_crack_model(1).pt filter=lfs diff=lfs merge=lfs -text
