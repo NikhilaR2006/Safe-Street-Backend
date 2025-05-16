@@ -468,6 +468,10 @@ app.get("/api/area-reports", async (req, res) => {
     }
 });
 
+app.get('/', (req, res) => {
+  res.send('Backend server is running!');
+});
+
 // ✅ Start Server
 const PORT = process.env.PORT || 5000;
 
