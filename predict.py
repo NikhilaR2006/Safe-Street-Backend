@@ -28,7 +28,7 @@ COLLECTION_NAME = os.getenv("COLLECTION_NAME", "uploads")
 
 # Initialize Flask
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+CORS(app, resources={r"/*": {"origins": ["https://safe-street-frontend.onrender.com","http://localhost:3000"]}})
 
 try:
     client = MongoClient(MONGO_URI)
@@ -174,5 +174,7 @@ def predict():
         traceback.print_exc()
         return jsonify({'message': f'Prediction error: {str(e)}'}), 500
 
+
 if __name__ == '__main__':
-    app.run(debug=True, port=5002)
+    port = int(os.environ.get("PORT", 10000))  # Render provides PORT env variable
+    app.run(host="0.0.0.0", port=port, debug=False)
