@@ -23,7 +23,7 @@ COLLECTION_NAME = os.getenv("COLLECTION_NAME", "uploads")
 
 # ✅ Initialize Flask App
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})  # ✅ Allow frontend
+CORS(app, resources={r"/*": {"origins": ["https://safe-street-frontend.onrender.com","http://localhost:3000"]}})  # ✅ Allow frontend
 
 # ✅ Connect to MongoDB
 try:
