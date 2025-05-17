@@ -190,7 +190,7 @@ def predict():
             'class': classification,
             'confidence': round(confidence.item(), 4),
             'filename': filename,
-            'imageUrl': f"http://localhost:5001/uploads/{filename}"
+            'imageUrl': f"https://safe-street-backend-app-py.onrender.com/uploads/{filename}"
         })
 
     except Exception as e:
