@@ -1,5 +1,4 @@
 import os
-import gdown
 import torch
 import cv2
 import timm
@@ -42,17 +41,17 @@ except Exception as e:
 # Load YOLO model
 yolo = YOLO('BOUNDING_BOXES_YOLO.pt')
 
-MODEL_URL = "https://drive.google.com/file/d/1BtE5Sr1X4gXkaJ6BRBRYPiGpGufxMiW-/view?usp=drive_link"
-MODEL_PATH = "vit_pothole_crack_model(1).pt"
-
-if not os.path.exists(MODEL_PATH):
-    print("Downloading model from Google Drive...")
-    gdown.download(MODEL_URL, MODEL_PATH, quiet=False)
-    print("Download complete.")
-
 # Load ViT model from timm
 vit_model = timm.create_model('vit_base_patch16_224', pretrained=False, num_classes=2)
 vit_model.load_state_dict(torch.load('vit_pothole_crack_model(1).pt', map_location=torch.device('cpu')))
+vit_model.eval()
+
+# Load quantized ViT model from file
+vit_model = timm.create_model('vit_base_patch16_224', pretrained=False, num_classes=2)
+vit_model = torch.quantization.quantize_dynamic(
+    vit_model, {torch.nn.Linear}, dtype=torch.qint8
+)
+vit_model.load_state_dict(torch.load('vit_pothole_crack_model_quantized.pt', map_location='cpu'))
 vit_model.eval()
 
 vit_classes = ['pothole', 'crack']
