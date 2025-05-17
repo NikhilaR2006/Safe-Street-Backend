@@ -199,5 +199,6 @@ def predict():
 
 # ✅ Start Flask Server
 if __name__ == '__main__':
-    logging.info("🚀 Starting Flask server on http://127.0.0.1:5001 ...")
-    app.run(host="0.0.0.0", port=5001, debug=True)
+    port = int(os.environ.get("PORT", 10000))  # Render provides PORT env variable
+    logging.info(f"🚀 Starting Flask server on port {port} ...")
+    app.run(host="0.0.0.0", port=port, debug=False)
